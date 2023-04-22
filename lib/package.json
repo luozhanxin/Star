@@ -10,6 +10,7 @@
   "author": "zhanxin",
   "license": "ISC",
   "dependencies": {
+    "@types/koa": "^2.13.6",
     "koa": "^2.14.2",
     "lodash": "^4.17.21"
   }

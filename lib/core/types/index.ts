@@ -5,3 +5,7 @@ export interface App extends Koa {
   extName: string;
   config: any;
 }
+
+export interface Hook {
+  default: (app: any) => void;
+}

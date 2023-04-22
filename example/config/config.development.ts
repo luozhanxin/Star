@@ -1,3 +1,7 @@
 export default (app) => {
-  return {};
+  return {
+    devServer: {
+      port: 8888,
+    },
+  };
 };

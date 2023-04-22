@@ -1,3 +1,2 @@
 import Star from "star-core/core";
-
-const app = Star();
+const app = Star({ appPath: __dirname });

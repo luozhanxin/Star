@@ -1,7 +1,8 @@
 import Koa from "koa";
 import path = require("path");
-import { deepMerge } from "./utils/tools";
-import { App } from "./types";
+import { deepMerge, getHooks } from "./utils";
+import { App, Hook } from "./types";
+const hooks = ["lift"];
 
 type Params = {
   appPath: string;
@@ -23,4 +24,17 @@ export default async function Star(params: Params) {
   );
 
   app.config = deepMerge(baseConfig.default(app), curConfig.default(app));
+
+  // get all hooks
+  const allHooks: Hook[] = await getHooks(hooks);
+  for (const hook of allHooks) {
+    try {
+      await hook.default(app);
+    } catch (error) {}
+  }
+
+  console.log(app.config);
+
+  // catch error
+  app.on("error", (error) => {});
 }
