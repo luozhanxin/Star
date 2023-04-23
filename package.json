@@ -1,11 +1,12 @@
 {
   "name": "star",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "a node.js web",
+  "main": "bin/star.js",
   "scripts": {
     "dev": "NODE_ENV=development nodemon -e ts,ejs --exec ts-node -T ./example/app.ts",
-    "lerna": "npx lerna bootstrap"
+    "lerna": "npx lerna bootstrap",
+    "test": "rm -rf test/.temp/* && mocha --exit -t=10000 'test/**/*.spec.js'"
   },
   "keywords": [
     "BFF",
@@ -15,10 +16,13 @@
   "author": "zhanxin",
   "license": "ISC",
   "dependencies": {
-    "lerna": "^6.1.0"
+    "lerna": "^6.1.0",
   },
   "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
+    "supertest": "^6.3.3",
     "ts-node": "^10.9.1"
   }
 }

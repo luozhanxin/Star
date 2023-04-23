@@ -1,4 +1,4 @@
-import path = require("path");
+import path from "path";
 export const getHooks = async (hooks: string[]) => {
   const len = hooks.length;
   const result: any[] = [];

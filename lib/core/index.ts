@@ -1,12 +1,30 @@
 import Koa from "koa";
-import path = require("path");
+import path from "path";
 import { deepMerge, getHooks } from "./utils";
-import { App, Hook } from "./types";
-const hooks = ["lift"];
+import { App, Hook, StarProcess } from "./types";
+const hooks = [
+  "formData",
+  "log",
+  "proxy",
+  "mock",
+  "redis",
+  "mysql",
+  "elasticsearch",
+  "static",
+  "view",
+  "bodyparser",
+  "login",
+  "custom-middlewares",
+  "cors",
+  "router",
+  "lift",
+];
 
 type Params = {
   appPath: string;
 };
+
+const starProcess = process as StarProcess;
 
 export default async function Star(params: Params) {
   const app: App = new Koa() as App;
@@ -30,11 +48,13 @@ export default async function Star(params: Params) {
   for (const hook of allHooks) {
     try {
       await hook.default(app);
-    } catch (error) {}
+    } catch (error) {
+      starProcess.emit("error", error);
+    }
   }
 
-  console.log(app.config);
-
   // catch error
-  app.on("error", (error) => {});
+  app.on("error", (error) => {
+    starProcess.emit("error", error);
+  });
 }
